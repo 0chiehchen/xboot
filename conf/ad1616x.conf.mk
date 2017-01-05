@@ -77,6 +77,13 @@ AVRDUDE_FUSES =
 # from main Makefile
 #OVERRIDE_AVRDUDE_FUSES = yes
 
+
+
+# IEEE:
+CMD_SYNC2  = 'U'
+CMD_EXIT2  = '^'
+
+
 # XBoot settings
 
 # AVR1008 fixes
@@ -143,7 +150,7 @@ ENTER_BLINK_COUNT     = 3
 ENTER_BLINK_WAIT      = 30000
 
 # ENTER_UART
-#ENTER_UART_NEED_SYNC = yes
+ENTER_UART_NEED_SYNC = yes
 
 # ENTER_FIFO
 #ENTER_FIFO_NEED_SYNC = yes
