@@ -1,10 +1,6 @@
 # AD-1616x
 # xmega128d4 configuration
 
-# IEEE:
-CMD_SYNC2  = 'U'
-CMD_EXIT2  = '^'
-
 # use config.h
 USE_CONFIG_H = yes
 

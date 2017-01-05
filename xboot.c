@@ -372,23 +372,19 @@ int main(void)
                 #ifdef USE_ENTER_UART
                 // Check for received character
                 #ifdef ENTER_UART_NEED_SYNC
-                if (uart_char_received() && (uart_cur_char() == CMD_SYNC))
+                if (uart_char_received() && ((uart_cur_char() == CMD_SYNC)||(uart_cur_char() == 'U')) )
                 #else // ENTER_UART_NEED_SYNC
                 if (uart_char_received())
                 #endif // ENTER_UART_NEED_SYNC
 		{
+			if (uart_cur_char() == 'U') {
+				send_char('>');		// RETURN PROMPT
+			}
+
                         in_bootloader = 1;
                         comm_mode = MODE_UART;
                 }
 
-                #ifdef CMD_SYNC2
-                if (uart_char_received() && (uart_cur_char() == CMD_SYNC2))
-                {
-			send_char('>');		// RETURN PROMPT
-                        in_bootloader = 1;
-                        comm_mode = MODE_UART;
-		}
-		#endif // CMD_SYNC2
 
                 #endif // USE_ENTER_UART
                 
@@ -683,20 +679,11 @@ int main(void)
                         send_char(REPLY_ACK);
                 }
                 // Exit bootloader
-                else if (val == CMD_EXIT_BOOTLOADER)
+                else if ( (val == CMD_EXIT_BOOTLOADER) || (val == '^') )
                 {
                         in_bootloader = 0;
                         send_char(REPLY_ACK);
                 }
-
-		// Exit bootloader 2
-		#ifdef CMD_EXIT2
-		else if (val == CMD_EXIT2)
-                {
-                        in_bootloader = 0;
-                        send_char(REPLY_ACK);
-                }
-		#endif
 
                 // Get programmer type
                 else if (val == CMD_PROGRAMMER_TYPE)
